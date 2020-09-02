@@ -1,0 +1,52 @@
+// IMPORT SECTION
+
+@import "node_modules/bootstrap/scss/bootstrap-reboot.scss" // Bootstrap Reboot collection
+
+// USER VARIABLES SECTION
+
+$accent:     orange // Accent Color
+$fontsize:   16px // Body Font Size
+$textcolor:  #fff// Text Color
+$mainfamily: roboto, sans-serif // Main Font Family
+
+// Bootstrap compatible gutter variable => $gutter
+
+$grid-gutter-width: 20px
+$gutter: $grid-gutter-width
+
+
+// FONTS LOAD SECTION
+
+@mixin font($f-name, $f-style, $f-weight, $f-url)
+	@font-face
+		font-family: $f-name
+		font-style: $f-style
+		font-weight: $f-weight
+		src: url($f-url) format('woff2')
+
+// GENERAL DOCUMENT STYLES
+
+::placeholder
+	color: #666
+
+// ::selection
+// 	background-color: $accent
+// 	color: #fff
+
+input, textarea
+	outline: none
+	&:focus:required:invalid
+		border-color: red
+	&:required:valid
+		border-color: green
+
+body
+	font-size: $fontsize
+	min-width: 320px
+	position: relative
+	line-height: 1.65
+	font-family: $mainfamily
+	overflow-x: hidden
+	color: $textcolor
+
+
