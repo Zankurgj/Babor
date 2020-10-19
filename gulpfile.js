@@ -87,7 +87,7 @@ function deploy() {
 // Watching
 
 function startwatch() {
-  watch('app/sass/*.' + preprocessor + '', parallel('styles'));
+  watch('app/sass/**/*.' + preprocessor + '', parallel('styles'));
   watch(['app/**/*.js', '!app/js/*.min.js'], parallel('scripts'));
   watch(['app/**/*.{' + imageswatch + '}'], parallel('images'));
   watch(['app/**/*.{' + fileswatch + '}']).on('change', browserSync.reload);

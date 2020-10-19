@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "gsap": "^3.5.0",
-    "winwheel": "^1.0.1"
+    "winwheel": "^1.0.1",
+    "font-awesome": "^4.7.0"
   }
 }
