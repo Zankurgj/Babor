@@ -1,17 +1,33 @@
 .page--whell {
+  font-family: 'Open Sans', sans-serif;
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
   .wheel-wrapper {
     display: table;
     position: relative;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
+    @media screen and (min-width: 992px) {
+      margin: 0 auto;
+    }
   }
   .wheel-pin-wrapper {
     position: absolute;
-    width: 25%;
+    width: 65px;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 94px;
+    transform: translateX(-50%);
     z-index: 2;
+    @media screen and (min-width: 992px) {
+      width: 130px;
+      top: 190px;
+    }
+  }
+  .whell-input-text-title {
+    margin-bottom: 20px;
   }
   .wheel-pin {
     width: 100%;
@@ -25,5 +41,81 @@
     top: 0;
     width: 100%;
     height: auto;
+  }
+  .whellCanvas {
+    display: block;
+    width: 300px;
+    height: 300px;
+    @media screen and (min-width: 992px) {
+      width: 600px;
+      height: 600px;
+    }
+  }
+  .whell-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    min-width: 0;
+    flex-direction: column;
+    @media screen and (min-width: 992px) {
+      flex-direction: row;
+    }
+  }
+  .whell-input-text {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .whell-input {
+    box-sizing: border-box;
+    width: 200px;
+    display: block;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    color: #1c1d1e;
+    border: 1px solid rgba(142, 142, 142, 0.5);
+    margin-bottom: 20px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .whell-input-wrapper {
+    display: block;
+  }
+  .whell-btn {
+    width: 200px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    padding: 8px 0;
+    color: #fff;
+    font-size: 0.875em;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.71429em;
+    letter-spacing: 0.02143em;
+    text-align: center;
+    border-radius: 0.14286em;
+    background-color: #1c1d1e;
+    transition: background-color 0.2s;
+    margin-bottom: 20px;
+    &:hover {
+      background-color: #414346;
+    }
+    &:disabled {
+      background-color: #75787b;
+      cursor: default;
+    }
+  }
+  .whell-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media screen and (min-width: 992px) {
+      padding-right: 40px;
+      align-items: flex-start;
+    }
   }
 }

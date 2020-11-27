@@ -10,32 +10,46 @@
   </head>
   <body>
     <div class="page--whell">
-      <div class="wheel-wrapper">
-        <canvas
-          id="wheelCanvas"
-          width="1000"
-          height="1000"
-          data-responsiveMinWidth="320"
-          data-responsiveScaleHeight="true"
-        >
-          Canvas not supported, use another browser.
-        </canvas>
-        <div class="wheel-pin-wrapper">
-          <div class="wheel-pin">
-            <img
-              class="wheel-pin-img"
-              src="./images/dest/pin.png"
-              aria-hidden="true"
-              alt="pin"
-            />
+      <p class="whell-input-text whell-input-text-title">Ваш выигрыш придет вам в виде сообщения на ваш мобильный телефон. Его нужно обязательно сохранить и показать администратору при визите в салон до начала процедуры. Внимание! Требуется предварительная запись на услуги.</p>
+      <div class="whell-row">
+        <div class="whell-col">
+          <div class="whell-form">
+            <label class="whell-input-wrapper">
+              <span class="whell-input-text">Введите ваш номер телефона</span>
+              <input type="text" class="whell-input" id="phone" placeholder="+7(999)999-99-99">
+            </label>
+            <button class="whell-btn" id="whellBtn" disabled onclick="startSpin(this)">Крутить колесо</button>
+            <div class="whell-input-text">
+              <span class="whell-input-text">Ваш выигрыш:</span>
+              <span id="prizeText" ></span>
+              <p>*в уходы не входит массаж и инъекции</p>
+              <p>**один клиент может участвовать в акции только один раз.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="whell-btn">
-        <button onclick="startSpin(this)">Крутить колесо</button>
-        <div>
-          <span>Ваш выигрыш:</span>
-          <span id="prizeText"></span>
+        <div class="whell-col">
+          <div class="wheel-wrapper">
+            <canvas
+              id="wheelCanvas"
+              class="whellCanvas"
+              width="600"
+              height="600"
+              data-responsiveMinWidth="320"
+              data-responsiveScaleHeight="true"
+            >
+              Canvas not supported, use another browser.
+            </canvas>
+            <div class="wheel-pin-wrapper">
+              <div class="wheel-pin">
+                <img
+                  class="wheel-pin-img"
+                  src="./images/dest/pin.png"
+                  aria-hidden="true"
+                  alt="pin"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +93,7 @@
         theWheel.draw(); // Also call draw function to render the wheel.
       };
 
-      bgImg.src = './images/dest/spinning.png';
+      bgImg.src = './images/dest/spinning_big.png';
 
       function alertPrize() {
         let winningSegment = theWheel.getIndicatedSegment();
@@ -89,6 +103,32 @@
       function startSpin(el) {
         el.disabled = true;
         theWheel.startAnimation();
+      }
+
+      var whellBtn = document.getElementById('whellBtn');
+      var phone = document.getElementById('phone');
+      Inputmask({ mask: '+7(999)999-99-99' }).mask(phone);
+      phone.oninput = function (e) {
+          var value = phone.value;
+          if (isValidPhoneNumber(getRawTelNumber(phone.value))) {
+            whellBtn.disabled = false;
+           } else {
+            whellBtn.disabled = true;
+           }
+      };
+
+      function isValidPhoneNumber(value) {
+        if (value.length === 12) {
+          return true;
+        }
+        return false;
+      }
+      function getRawTelNumber(val) {
+        return val
+          .replace(/-/g, '')
+          .replace(/_/g, '')
+          .replace(/\(/g, '')
+          .replace(/\)/g, '');
       }
     </script>
   </body>
