@@ -18,7 +18,7 @@
               <span class="whell-input-text">Введите ваш номер телефона</span>
               <input type="text" class="whell-input" id="phone" placeholder="+7(999)999-99-99">
             </label>
-            <button class="whell-btn" id="whellBtn" disabled onclick="startSpin(this)">Крутить колесо</button>
+            <button class="whell-btn" disabled id="whellBtn" onclick="startSpin(this)">Крутить колесо</button>
             <div class="whell-input-text">
               <span class="whell-input-text">Ваш выигрыш:</span>
               <span id="prizeText" ></span>
@@ -85,7 +85,7 @@
           callbackFinished: 'alertPrize()',
         },
       });
-
+      console.log();
       let bgImg = new Image();
 
       bgImg.onload = function () {
@@ -96,15 +96,56 @@
       bgImg.src = './images/dest/spinning_big.png';
 
       function alertPrize() {
-        let winningSegment = theWheel.getIndicatedSegment();
+        var winningSegment = theWheel.getIndicatedSegment();
         document.querySelector('#prizeText').innerHTML = winningSegment.text;
       }
 
       function startSpin(el) {
         el.disabled = true;
+        // В идеале функцию calcPrize добавить на сервер для секьюрности
+        var stopAt = calcPrize();
+        theWheel.animation.stopAngle = stopAt;
         theWheel.startAnimation();
       }
+      function calcPrize() {
+        var chance = [
+          // диагностика кожи - 50%
+          { percentStep: 50,
+            segmentNumber: 2
+            },
+          // 5% на уход - 15%
+          { percentStep: 65,
+            segmentNumber: 4
+            },
+          // подарок - 10%
+          { percentStep: 75,
+            segmentNumber: 3
+            },
+          // Маникюр - 10%
+          { percentStep: 85,
+            segmentNumber: 1
+            },
+          // 7% на уход - 10%
+          { percentStep: 95,
+            segmentNumber: 5
+            },
+          // Экспресс уход - 5%
+          { percentStep: 100,
+            segmentNumber: 6
+            },
+          ],
+        randomNumber = Math.round(Math.random()*100),
+        segmentAngle = 360 / (theWheel.segments.length - 1),
+        wonSigment;
 
+        for ( var i=0; i < chance.length; i++) {
+          if ( randomNumber <= chance[i].percentStep) {
+            wonSigment = chance[i].segmentNumber;
+            break;
+          }
+        }
+        return ((wonSigment*segmentAngle - segmentAngle + 1) + Math.floor((Math.random() * (segmentAngle - 2))))
+      }
       var whellBtn = document.getElementById('whellBtn');
       var phone = document.getElementById('phone');
       Inputmask({ mask: '+7(999)999-99-99' }).mask(phone);
